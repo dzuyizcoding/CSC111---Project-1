@@ -1,0 +1,100 @@
+{
+  "locations": [
+    {
+      "id": 1,
+      "name": "Bahen",
+      "brief_description": "You are on the first floor of the Bahen Center. There are elevators to the West, and an exit from the building to St. George street to the East. You see something shiny on the ground -- looks like a toonie?",
+      "long_description": "You are on the first floor of the Bahen Center. It's usually crowded at this time of the day, but today it's eerily quiet. Only a few students are studying at the table near the doors. You better not disturb them. One student is rushing down the corridor, wearing a heavy-looking backpack and carrying a textbook in their arms. There are elevators to the West, and an exit from the building to St. George street to the East.",
+      "available_commands": {
+        "go south": 4,
+        "go east": 2,
+        "go west": 6
+      },
+      "items": ["laptop"]
+    },
+    {
+      "id": 2,
+      "name": "Robarts Library",
+      "brief_description": ""
+      "long_description": "",
+      "available_commands": {
+        "go south": 3,
+        "go west": 1
+      },
+      "items": ["laptop charger"]
+    },
+    {
+      "id": 3,
+      "name": "Old Vic",
+      "brief_description": ""
+      "long_description": "",
+      "available_commands": {
+        "go north": 2,
+        "go west": 4
+      },
+    },
+    {
+      "id": 4,
+      "name": "Myhal",
+      "brief_description": ""
+      "long_description": "",
+      "available_commands": {
+        "go north": 1,
+        "go west": 3,
+        "go east": 5
+      },
+      "items": ["USB drive"]
+    },
+    {
+      "id": 5,
+      "name": "Exam Centre",
+      "brief_description": ""
+      "long_description": "",
+      "available_commands": {
+        "go north": 6,
+        "go east": 4
+      },
+    },
+    {
+      "id": 6,
+      "name": "Dorm",
+      "brief_description": ""
+      "long_description": "",
+      "available_commands": {
+        "go south": 5,
+        "go east": 1
+      },
+      "items": ["lucky mug"]
+    }
+  ],
+  "items": [
+    {
+      "name": "laptop",
+      "description": "There is a toonie on the ground. Someone must have dropped it.",
+      "start_position": 1,
+      "target_position": 6,
+      "target_points": 5
+    },
+    {
+      "name": "USB drive",
+      "description": "There is a toonie on the ground. Someone must have dropped it.",
+      "start_position": 4,
+      "target_position": 6,
+      "target_points": 5
+    },
+    {
+      "name": "lucky mug",
+      "description": "There is a toonie on the ground. Someone must have dropped it.",
+      "start_position": 6,
+      "target_position": 6,
+      "target_points": 5
+    },
+    {
+      "name": "laptop charger",
+      "description": "There is a toonie on the ground. Someone must have dropped it.",
+      "start_position": 2,
+      "target_position": 6,
+      "target_points": 5
+    }
+  ]
+}

@@ -32,6 +32,7 @@
         "go north": 2,
         "go west": 4
       },
+      "items": []
     },
     {
       "id": 4,
@@ -40,8 +41,8 @@
       "long_description": "You are at Myhal. The space feels modern and open, with bright lighting and lots of glass. A few students are sitting with laptops open, and someone is speaking quietly in a corner like they’re in a meeting. Bahen is to the North, Old Vic is to the East, and the Exam Centre is to the West. Then you spot your friend. They look unusually relaxed considering the deadline, and they’re casually turning something small over in their hand. From the size and shape, it could be exactly what you’ve been missing all morning.",
       "available_commands": {
         "go north": 1,
-        "go west": 3,
-        "go east": 5
+        "go west": 5,
+        "go east": 3
       },
       "items": ["USB drive"]
     },
@@ -54,6 +55,7 @@
         "go north": 6,
         "go east": 4
       },
+      "items": []
     },
     {
       "id": 6,

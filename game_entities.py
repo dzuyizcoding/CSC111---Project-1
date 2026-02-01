@@ -26,18 +26,15 @@ class Location:
     """A location in our text adventure game world.
 
     Instance Attributes:
-        - id_num: Unique integer id for this location.
-        - brief_description: Short description shown after the location has been visited.
-        - long_description: Full description shown the first time visiting or when using "look".
-        - available_commands: Mapping from command string (e.g., "go east") to destination location id.
-        - items: Names of items currently present at this location.
-        - visited: Whether the player has visited this location before.
+        - id_num: integer id for this location
+        - description: Long description of this location
+        - available_commands: a mapping of available commands at this location to
+                                the location executing that command would lead to
+        - items: the items stored at this position
+        -
 
     Representation Invariants:
-        - self.id_num >= 0
-        - all(isinstance(k, str) and k != "" for k in self.available_commands)
-        - all(isinstance(v, int) and v >= 0 for v in self.available_commands.values())
-        - all(isinstance(name, str) and name != "" for name in self.items)
+        - # TODO Describe any necessary representation invariants
     """
 
     # This is just a suggested starter class for Location.
@@ -59,17 +56,13 @@ class Item:
     """An item in our text adventure game world.
 
     Instance Attributes:
-        - name: The item name (unique identifier in your game).
-        - start_position: Location id where this item starts in the world.
-        - target_position: Location id where this item should end up for scoring/win logic.
-        - target_points: Points earned when this item reaches its target position.
-
+        - name: the name of the item
+        - start_position: the item's initial position
+        - target_position: where the item can be used
+        - target_points: the point of the item
 
     Representation Invariants:
-        - self.name != ""
-        - self.start_position >= 0
-        - self.target_position >= 0
-        - self.target_points >= 0
+        - # TODO Describe any necessary representation invariants
     """
 
     # NOTES:

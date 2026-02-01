@@ -51,7 +51,14 @@ class AdventureGame:
     current_location_id: int  # Suggested attribute, can be removed
     ongoing: bool  # Suggested attribute, can be removed
 
-    def __init__(self, game_data_file: str, initial_location_id: int) -> None:
+    # Game state attributes (baseline requirements)
+    event_log: EventList
+    inventory: list[Item]
+    score: int
+    moves_used: int
+    max_moves: int
+
+    def __init__(self, game_data_file: str, initial_location_id: int, max_moves: int = 30) -> None:
         """
         Initialize a new text adventure game, based on the data in the given file, setting starting location of game
         at the given initial location ID.
@@ -74,6 +81,12 @@ class AdventureGame:
         # Suggested attributes (you can remove and track these differently if you wish to do so):
         self.current_location_id = initial_location_id  # game begins at this location
         self.ongoing = True  # whether the game is ongoing
+
+        self.event_log = EventList()
+        self.inventory = []
+        self.score = 0
+        self.moves_used = 0
+        self.max_moves = max_moves
 
     @staticmethod
     def _load_game_data(filename: str) -> tuple[dict[int, Location], list[Item]]:
@@ -112,6 +125,61 @@ class AdventureGame:
         else:
             return self._locations[loc_id]
 
+    def get_item_by_names(self, name: str) -> Optional[Item]:
+        """Return the Item whose name matches. Otherwise, return None"""
+        name = name.strip().lower()
+        for i in self._items:
+            if i.name.strip().lower() == name:
+                return i
+        return None
+
+    def show_inventory(self):
+        """Return a list of items in player's inventory"""
+        return [item.name for item in self.inventory]
+
+    def current_moves(self):
+        """Increase the player's move by 1 and check if it reaches the maxmimum moves allowed"""
+        self.moves_used += 1
+        if self.moves_used >= self.max_moves:
+            self.ongoing = False
+            return f"You ran out of moves. YOU LOSE :(( (moves: {self.moves_used}/{self.max_moves})"
+        return None
+
+    def process_choice(self, choice: str):
+        """Process the player's command"""
+
+        command = raw_command.strip().lower()
+        loc = self.get_location()
+
+        if command == "":
+            return "Please enter a command."
+
+        # --- Quit ---
+        if command == "quit":
+            self.ongoing = False
+            return "You quit the game."
+
+        # --- Look ---
+        if command == "look":
+            return self.describe_current_location(force_long=True)
+
+        # --- Inventory ---
+        if command == "inventory":
+            if not self.inventory:
+                return "Inventory: (empty)"
+            return "Inventory: " + ", ".join(self._inventory_names())
+
+        # --- Score ---
+        if command == "score":
+            return f"Score: {self.score} | Moves: {self.moves_used}/{self.max_moves}"
+
+        # --- Log ---
+        if command == "log":
+            self.event_log.display_events()
+            return ""
+
+
+
 
 if __name__ == "__main__":
     # When you are ready to check your work with python_ta, uncomment the following lines.
@@ -139,24 +207,24 @@ if __name__ == "__main__":
         #  Note that the <choice> variable should be the command which led to this event
         # Add an Event for entering this location (only if it is the first event OR location changed)
         if game_log.is_empty() or (game_log.last is not None and game_log.last.id_num != location.id_num):
-            new_event = location
-            game_log.add_event(new_event)
-
+            new_event = Event(location.id_num, location.long_description)
+            game_log.add_event(new_event, choice)
 
 
         # TODO: Depending on whether or not it's been visited before,
         #  print either full description (first time visit) or brief description (every subsequent visit) of location
         if location.visited:
-            print(location.long_description)
-        else:
             print(location.brief_description)
+        else:
+            print(location.long_description)
             location.visited = True
 
         # Display possible actions at this location
         print("What to do? Choose from: look, inventory, score, log, quit")
-        print("At this location, you can also:")
-        for action in location.available_commands:
-            print("-", action)
+        if location.available_commands:
+            print("From here, you can also:")
+            for action in location.available_commands:
+                print("-", action)
 
         # Validate choice
         choice = input("\nEnter action: ").lower().strip()
@@ -167,23 +235,6 @@ if __name__ == "__main__":
         print("========")
         print("You decided to:", choice)
 
-        if choice in menu:
-            # TODO: Handle each menu command as appropriate
-            if choice == "log":
-                game_log.display_events()
-            # ENTER YOUR CODE BELOW to handle other menu commands (remember to use helper functions as appropriate)
-            elif choice == "look":
-                ...
-            elif choice == "inventory":
-                ...
-            elif choice == "score":
-                ...
-            elif choice == "quit":
-                game.ongoing = False
-        else:
-            # Handle non-menu actions
-            result = location.available_commands[choice]
-            game.current_location_id = result
 
             # TODO: Add in code to deal with actions which do not change the location (e.g. taking or using an item)
             # TODO: Add in code to deal with special locations (e.g. puzzles) as needed for your game

@@ -130,25 +130,23 @@ if __name__ == "__main__":
 
     # WIN DEMO
     win_walkthrough = [
-        "go east",  # 1 -> 2
-        "take laptop charger",  # stay 2
-        "go south",  # 2 -> 3
-        "go west",  # 3 -> 4
-        "take USB drive",  # stay 4
-        "go west",  # 4 -> 5
-        "take lucky mug",  # stay 5
-        "go east",  # 5 -> 4
-        "go north",  # 4 -> 1
-        # arena happens here when you take laptop in normal gameplay
-        "take laptop",  # stay 1 (after winning arena gate)
-        "go west",  # 1 -> 6
+        "go south",
+        "take lucky mug",
+        "go east",
+        "take USB drive",
+        "go north",
+        "take laptop",
+        "go east",
+        "take laptop charger",
+        "go west",
+        "go west",
         "drop laptop",
         "drop USB drive",
-        "drop lucky mug",
         "drop laptop charger",
+        "drop lucky mug"
     ]
 
-    expected_log = [1, 2, 2, 3, 4, 4, 5, 5, 4, 1, 1, 6, 6, 6, 6, 6]
+    expected_log = [1, 4, 3, 2, 2, 1, 6, 6]
 
     sim = AdventureGameSimulation('game_data.json', 1, win_walkthrough)
     print("EXPECTED:", expected_log)
@@ -214,7 +212,7 @@ if __name__ == "__main__":
         "inventory"
     ]
 
-    expected_log = [1, 2, 3, 4, 1, 1]
+    expected_log = [1, 2, 3, 4, 1]
 
     sim = AdventureGameSimulation('game_data.json', 1, enhancement1_demo)
     print("---- CHECKING ----")

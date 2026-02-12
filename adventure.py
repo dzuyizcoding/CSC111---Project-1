@@ -506,7 +506,7 @@ class AdventureGame:
         self.moves_used += 1
         if self.moves_used >= self.max_moves:
             self.ongoing = False
-            return f"You ran out of moves. YOU LOSE :(( (moves: {self.moves_used}/{self.max_moves})"
+            return f"YOU LOSE. It's 1pm now!!! You couldn't submit your assignment on time so you failed the course. :(( (: {self.moves_used}/{self.max_moves})"
         return None
 
     def _find_item(self, item_name: str) -> Optional[Item]:

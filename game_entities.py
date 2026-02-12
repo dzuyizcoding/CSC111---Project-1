@@ -19,7 +19,7 @@ please consult our Course Syllabus.
 This file is Copyright (c) 2026 CSC111 Teaching Team
 """
 from dataclasses import dataclass
-from typing import Optional, Tuple
+from typing import Optional
 
 
 @dataclass
@@ -81,8 +81,19 @@ class Item:
     target_position: int
     target_points: int
 
+
 @dataclass
 class Player:
+    """A player in the arena game.
+
+        Instance Attributes:
+            - name: the name of this player
+            - energy: the current amount of energy the player has
+
+        Representation Invariants:
+            - name != ""
+            - energy >= 0
+        """
     name: str
     energy: int
     points: int = 0
@@ -92,13 +103,13 @@ class Player:
 # - Player class
 # etc.
 
+
 if __name__ == "__main__":
-    pass
     # When you are ready to check your work with python_ta, uncomment the following lines.
     # (Delete the "#" and space before each line.)
     # IMPORTANT: keep this code indented inside the "if __name__ == '__main__'" block
-    # import python_ta
-    # python_ta.check_all(config={
-    #     'max-line-length': 120,
-    #     'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker']
-    # })
+    import python_ta
+    python_ta.check_all(config={
+        'max-line-length': 120,
+        'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker']
+    })

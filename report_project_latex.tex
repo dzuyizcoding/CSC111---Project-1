@@ -1,0 +1,371 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+
+\title{CSC111 Winter 2026 Project 1}
+\author{Alice Nguyen, Syaikha Faiza Arifin, Tamima Wadageri}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Running the game}
+The game can be run by executing \texttt{adventure.py}. No additional modules are required beyond standard Python libraries. The game runs in the terminal. Players input commands directly when prompted.
+
+\section*{Game Map}
+The game takes place in a small University of Toronto environment connected as follows:
+
+\begin{verbatim}
+    6  1  2
+    5  4  3
+\end{verbatim}
+
+Starting location is: Dorm (6)
+
+\section*{Game solution}
+
+List of commands:
+
+\begin{enumerate}
+    \item Look
+    \item Inventory
+    \item Score
+    \item Log
+
+    \item Go South
+    \item Look
+    \item Take Lucky Mug
+    \item Inventory
+    \item Drop Lucky Mug
+    \item Undo
+    \item Undo
+
+    \item Go East
+    \item Take USB Drive
+    \item Go North
+    \item Take Laptop
+    \item Quit
+    \item Inventory
+
+    \item Take Laptop
+    \item (Game: Try to win the game since there is no winning scenario for this)
+    \item Go East
+    \item Take Laptop Charger
+    \item Go West
+    \item Go West
+
+    \item Drop Laptop
+    \item Drop USB Drive
+    \item Drop Laptop Charger
+    \item Drop Lucky Mug
+
+    \item Restart
+    \item Quit
+\end{enumerate}
+
+
+\section*{Lose condition(s)}
+Description of how to lose the game: Players lose if players run out of moves with max 30 moves.\\
+
+List of commands:
+    \begin{enumerate}
+        \item Go West
+        \item Go East
+    \end{enumerate}
+
+Keep doing that for 30 times until you run out of moves.\\
+
+Which parts of your code are involved in this functionality:
+
+\begin{verbatim}
+if not self.ongoing and self.moves_used >= self.max_moves:
+    return f"You ran out of moves (moves used: {self.moves_used}). It's 1pm — you lose."
+\end{verbatim}
+
+\section*{Inventory}
+
+\begin{enumerate}
+\item All location IDs that involve items in the game:
+\begin{enumerate}
+        \item Location 1:
+    \begin{itemize}
+    \item Name: Bahen
+    \item Item: Laptop
+    \item ID: 1
+    \end{itemize}
+        \item Location 2: 
+    \begin{itemize}
+    \item Name: Robarts Library
+    \item Item: Laptop Charger
+    \item ID: 2
+    \end{itemize}
+        \item Location 3:
+    \begin{itemize}
+    \item Name: Old Vic 
+    \item Item: -
+    \item ID: 3
+    \end{itemize}
+        \item Location 4:
+    \begin{itemize}
+    \item Name: Myhal
+    \item Item: USB Drive
+    \item ID: 4
+    \end{itemize} 
+        \item Location 5:
+    \begin{itemize}
+    \item Name: Exam Centre 
+    \item Item: Lucky Mug
+    \item ID: 5
+    \end{itemize}
+        \item Location 6:
+    \begin{itemize}
+    \item Name: Dorm 
+    \item Item: -
+    \item ID: 6
+    \end{itemize}
+\end{enumerate}
+
+
+\item Item data:
+\begin{enumerate}
+    \item For Item 1:
+    \begin{itemize}
+    \item Item name: Laptop
+    \item Item start location ID: 1
+    \item Item target location ID: 6
+    \end{itemize}
+        \item For Item 2: 
+    \begin{itemize}
+    \item Item name: USB Drive
+    \item Item start location ID: 4
+    \item Item target location ID: 6
+    \end{itemize}
+        \item For Item 3:
+    \begin{itemize}
+    \item Item name: Lucky Mug
+    \item Item start location ID: 5
+    \item Item target location ID:6
+    \end{itemize}
+        \item For Item 4:
+    \begin{itemize}
+    \item Item name: Laptop Charger
+    \item Item start location ID: 2
+    \item Item target location ID: 6
+    \end{itemize}
+    % Copy-paste the above if you have more items, to list ALL items
+\end{enumerate}
+
+    \item Exact command(s) that should be used to pick up an item (choose any one or more items for this example), and the command(s) used to use/drop the item (can copy the list you assigned to 
+    \texttt{inventory\_demo} in the \texttt{simulation.py} file)
+        \begin{itemize}
+            \item Command to pick up item : Take
+            \item Command to Usse/Drop item : Drop
+        \end{itemize}
+
+            
+    \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{inventory} command:
+    \begin{itemize}
+        \item function method : \texttt{def take}
+        \item function method : \texttt{def drop}
+    \end{itemize}
+\end{enumerate}
+
+\section*{Score}
+\begin{enumerate}
+
+    \item Briefly describe the way players can earn score in your game. Include the first location in which they can increase their score, and the exact list of command(s) leading up to the score increase: 
+
+    The player could get score collecting all the item and return that to the dorm.
+
+    \item Copy the list you assigned to \texttt{scores\_demo} in the \texttt{simulation.py} file into this section of the report:
+    \begin{verbatim}
+    scores_demo = [
+        "go south",
+        "take lucky mug",
+        "score",
+        "go north",
+        "drop lucky mug",
+        "score"
+    ]
+
+    expected_log = [6, 5, 5, 6, 6]
+    sim = AdventureGameSimulation('game_data.json', 6, scores_demo)
+    print("---- CHECKING ----")
+    print("EXPECTED:", expected_log)
+    print("ACTUAL  :", sim.get_id_log())
+
+    assert expected_log == sim.get_id_log()
+    \end{verbatim}
+    
+
+    \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{score} functionality:
+    \begin{itemize}
+        \item function method : \texttt{def \_find\_item}
+    \end{itemize}
+\end{enumerate}
+
+\section*{Enhancements}
+\begin{enumerate}
+    \item Describe your enhancement \#1 here
+    \begin{itemize}
+        \item Brief description of what the enhancement is (if it's a puzzle, also describe what steps the player must take to solve it):
+        
+        Enhancement 1 is an optional battle system called Evolution Arena. It extends the traditional Rock-Paper-Scissors mechanic by introducing power levels and an energy management system.
+        
+        There are four types of moves: rock, paper, scissors, and shadow.\\
+        
+        Normal dominance rules:
+        \begin{itemize}
+            \item Shadow defeats any move with power level 1, regardless of type.
+        \end{itemize}
+
+        Each move has a power level from 1 to 3. If no number is specified, the power defaults to 1.
+        
+        Examples:
+        \begin{verbatim}
+rock
+paper 2
+scissors 3
+shadow 1
+        \end{verbatim}
+
+        Energy system:
+\begin{itemize}
+\item Both players start with 3 energy.
+\item Power 1 costs 0 energy.
+\item Power 2 costs 1 energy.
+\item Power 3 costs 2 energy.
+\item Shadow adds +2 additional energy cost.
+\end{itemize}
+
+
+If a player attempts to use a move that exceeds available energy, the system automatically replaces the move with rock 1.
+
+\bigskip
+Round resolution:
+\begin{enumerate}
+\item Check dominance using standard RPS rules.
+\item If neither move dominates, compare power levels.
+\item If both type and power are identical, the round is a draw.
+\end{enumerate}
+
+\bigskip
+Scoring:
+\begin{itemize}
+\item Winner earns 1 point.
+\item First player to reach 5 points wins the Arena.
+\end{itemize}
+
+\bigskip
+Energy regeneration after each round:
+\begin{itemize}
+\item Winner gains +1 energy.
+\item Loser gains +2 energy.
+\item Draw: both gain +1 energy.
+\end{itemize}
+
+\bigskip
+        \item Complexity level (choose from low/medium/high): Medium
+        \item Reasons you believe this is the complexity level (e.g., mention implementation details, how much code did you have to add/change from the baseline, what challenges did you face, etc.)
+        \begin{itemize}
+            \item Required adding a structured mini-game within the main adventure game.
+            \item Implemented move parsing that supports optional power levels.
+            \item Added an energy tracking mechanism for both players.
+            \item Implemented conditional logic for dominance, power comparison, and draw cases.
+            \item Added a separate scoring system and win condition (first to 5 points).
+        \end{itemize}
+\bigskip
+        Although the enhancement introduces new game mechanics and additional state tracking, it builds directly on simple conditional logic and does not require complex data structures or advanced algorithms. Therefore, it is classified as medium complexity rather than high.
+        
+        \item Name the parts of the code which are involved in this enhancement
+        
+\medskip
+        \texttt{Class ArenaPlayer} :
+        \begin{itemize}
+            \item \texttt{def arena\_energy\_cost}
+            \item \texttt{def arena\_beats}
+            \item \texttt{def arena\_resolve\_round}
+            \item \texttt{def arena\_parse\_move}
+            \item \texttt{def arena\_enforce\_energy}
+            \item \texttt{def arena\_ai\_choose}
+            \item \texttt{def arena\_print\_rules}
+            \item \texttt{def arena\_prompt\_move}
+            \item \texttt{def arena\_apply\_regen}
+            \item \texttt{def play\_evolution\_arena}
+        \end{itemize}
+        \item Copy the list you assigned to \texttt{enhancements\_demo} in the \texttt{simulation.py} file into this section of the report:
+
+        \begin{verbatim}
+    # ENHANCEMENT 1
+    enhancement1_demo = [
+        "go east",
+        "go south",
+        "go west",
+        "go north",
+        "take laptop",
+        "quit",
+        "inventory"
+    ]
+
+    expected_log = [1, 2, 3, 4, 1]
+
+    sim = AdventureGameSimulation('game_data.json', 1, enhancement1_demo)
+    print("---- CHECKING ----")
+    print("EXPECTED:", expected_log)
+    print("ACTUAL  :", sim.get_id_log())
+
+    assert expected_log == sim.get_id_log()
+
+    # ENAHNCEMENT 2
+    enhancement2_demo = [
+        "go east",
+        "go south",
+        "take laptop charger",
+        "undo",
+        "undo"
+    ]
+
+    expected_log = [1, 2, 3, 2, 1]
+
+    sim = AdventureGameSimulation('game_data.json', 1, enhancement2_demo)
+    print("---- CHECKING ----")
+    print("EXPECTED:", expected_log)
+    print("ACTUAL  :", sim.get_id_log())
+
+    assert expected_log == sim.get_id_log()
+
+    # ENHANCEMENT 3
+    enhancement3_demo = [
+        "go east",
+        "take laptop charger",
+        "restart",
+        "go west"
+    ]
+
+    expected_log = [1, 2, 2, 1, 6]
+
+    sim = AdventureGameSimulation('game_data.json', 1, enhancement3_demo)
+    print("---- CHECKING ----")
+    print("EXPECTED:", expected_log)
+    print("ACTUAL  :", sim.get_id_log())
+
+    assert expected_log == sim.get_id_log()
+        \end{verbatim}
+    \end{itemize}
+
+    % Uncomment below section if you have more enhancements; copy-paste as needed
+    %\item Describe your enhancement here
+    %\begin{itemize}
+    %    \item Basic description of what the enhancement is:
+    %    \item Complexity level (low/medium/high):
+    %    \item Reasons you believe this is the complexity level (e.g., mention implementation details)
+    %    \item Name the parts of the code which are involved in this enhancement
+    %    \item Copy the list you assigned to \texttt{enhancements\_demo} in the \texttt{simulation.py} file into this section of the report:
+    %\end{itemize}
+\end{enumerate}
+
+
+\end{document}

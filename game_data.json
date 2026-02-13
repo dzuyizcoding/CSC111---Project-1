@@ -17,7 +17,7 @@
     {
       "id": 2,
       "name": "Robarts Library",
-      "brief_description": "You are at Robarts Library. Bahen is to the West, and Old Vic is to the South. You remember you left your laptop charger in one of the study rooms.",
+      "brief_description": "You are at Robarts Library. Bahen is to the West, and Old Vic is to the South. You remember working on your project before when your laptop was running out of battery.",
       "long_description": "You are at Robarts Library. The entrance area is quiet, and the atmosphere immediately makes you feel like you should be studying—even though you don’t have time. A few students walk by with headphones on, and someone is whispering into their phone like it’s a secret. Bahen is to the West, and Old Vic is to the South. As you glance toward the study rooms, you remember unplugging your laptop charger here earlier. Your battery is already low, and you don’t have much time to waste.",
       "available_commands": {
         "go south": 3,
@@ -55,8 +55,8 @@
     {
       "id": 5,
       "name": "Exam Centre",
-      "brief_description": "You are at the Exam Centre. Myhal is to the East, and your dorm is to the North. Just being here makes you feel nervous for no reason.",
-      "long_description": "You are at the Exam Centre. The area feels quiet and a little too clean, and the lighting makes everything look more serious than it needs to be. Even when you’re not writing an exam, you still get that familiar nervous feeling just standing here. Myhal is to the East, and your dorm is to the North. You take a breath and keep moving—this isn’t the place to get stuck.",
+      "brief_description": "You are at the Exam Centre. Myhal is to the East, and your dorm is to the North. Just being here makes you feel nervous for no reason, but you remember that your lucky item always calmed you down.",
+      "long_description": "You are at the Exam Centre. The area feels quiet and a little too clean, and the lighting makes everything look more serious than it needs to be. Even when you’re not writing an exam, you still get that familiar nervous feeling just standing here. Myhal is to the East, and your dorm is to the North. Just being here makes you feel nervous for no reason, but you remember that your lucky item always calmed you down.",
       "available_commands": {
         "go north": 6,
         "go east": 4

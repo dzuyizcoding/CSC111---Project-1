@@ -72,8 +72,8 @@ Description of how to lose the game: Players lose if players run out of moves wi
 
 List of commands:
     \begin{enumerate}
-        \item Go West
-        \item Go East
+        \item Go South
+        \item Go North
     \end{enumerate}
 
 Keep doing that for 30 times until you run out of moves.\\
@@ -96,7 +96,7 @@ if not self.ongoing and self.moves_used >= self.max_moves:
     \item Item: Laptop
     \item ID: 1
     \end{itemize}
-        \item Location 2: 
+        \item Location 2:
     \begin{itemize}
     \item Name: Robarts Library
     \item Item: Laptop Charger
@@ -104,7 +104,7 @@ if not self.ongoing and self.moves_used >= self.max_moves:
     \end{itemize}
         \item Location 3:
     \begin{itemize}
-    \item Name: Old Vic 
+    \item Name: Old Vic
     \item Item: -
     \item ID: 3
     \end{itemize}
@@ -113,16 +113,16 @@ if not self.ongoing and self.moves_used >= self.max_moves:
     \item Name: Myhal
     \item Item: USB Drive
     \item ID: 4
-    \end{itemize} 
+    \end{itemize}
         \item Location 5:
     \begin{itemize}
-    \item Name: Exam Centre 
+    \item Name: Exam Centre
     \item Item: Lucky Mug
     \item ID: 5
     \end{itemize}
         \item Location 6:
     \begin{itemize}
-    \item Name: Dorm 
+    \item Name: Dorm
     \item Item: -
     \item ID: 6
     \end{itemize}
@@ -137,7 +137,7 @@ if not self.ongoing and self.moves_used >= self.max_moves:
     \item Item start location ID: 1
     \item Item target location ID: 6
     \end{itemize}
-        \item For Item 2: 
+        \item For Item 2:
     \begin{itemize}
     \item Item name: USB Drive
     \item Item start location ID: 4
@@ -158,14 +158,14 @@ if not self.ongoing and self.moves_used >= self.max_moves:
     % Copy-paste the above if you have more items, to list ALL items
 \end{enumerate}
 
-    \item Exact command(s) that should be used to pick up an item (choose any one or more items for this example), and the command(s) used to use/drop the item (can copy the list you assigned to 
+    \item Exact command(s) that should be used to pick up an item (choose any one or more items for this example), and the command(s) used to use/drop the item (can copy the list you assigned to
     \texttt{inventory\_demo} in the \texttt{simulation.py} file)
         \begin{itemize}
             \item Command to pick up item : Take
             \item Command to Usse/Drop item : Drop
         \end{itemize}
 
-            
+
     \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{inventory} command:
     \begin{itemize}
         \item function method : \texttt{def take}
@@ -176,7 +176,7 @@ if not self.ongoing and self.moves_used >= self.max_moves:
 \section*{Score}
 \begin{enumerate}
 
-    \item Briefly describe the way players can earn score in your game. Include the first location in which they can increase their score, and the exact list of command(s) leading up to the score increase: 
+    \item Briefly describe the way players can earn score in your game. Include the first location in which they can increase their score, and the exact list of command(s) leading up to the score increase:
 
     The player could get score collecting all the item and return that to the dorm.
 
@@ -199,7 +199,7 @@ if not self.ongoing and self.moves_used >= self.max_moves:
 
     assert expected_log == sim.get_id_log()
     \end{verbatim}
-    
+
 
     \item Which parts of your code (file, class, function/method) are involved in handling the \texttt{score} functionality:
     \begin{itemize}
@@ -213,18 +213,18 @@ if not self.ongoing and self.moves_used >= self.max_moves:
     \item Describe your enhancement \#1 here
     \begin{itemize}
         \item Brief description of what the enhancement is (if it's a puzzle, also describe what steps the player must take to solve it):
-        
+
         Enhancement 1 is an optional battle system called Evolution Arena. It extends the traditional Rock-Paper-Scissors mechanic by introducing power levels and an energy management system.
-        
+
         There are four types of moves: rock, paper, scissors, and shadow.\\
-        
+
         Normal dominance rules:
         \begin{itemize}
             \item Shadow defeats any move with power level 1, regardless of type.
         \end{itemize}
 
         Each move has a power level from 1 to 3. If no number is specified, the power defaults to 1.
-        
+
         Examples:
         \begin{verbatim}
 rock
@@ -280,9 +280,9 @@ Energy regeneration after each round:
         \end{itemize}
 \bigskip
         Although the enhancement introduces new game mechanics and additional state tracking, it builds directly on simple conditional logic and does not require complex data structures or advanced algorithms. Therefore, it is classified as medium complexity rather than high.
-        
+
         \item Name the parts of the code which are involved in this enhancement
-        
+
 \medskip
         \texttt{Class ArenaPlayer} :
         \begin{itemize}

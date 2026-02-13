@@ -146,17 +146,17 @@ if __name__ == "__main__":
         "drop lucky mug"
     ]
 
-    expected_log = [1, 4, 3, 2, 2, 1, 6, 6]
+    expected_log = [6, 5, 5, 4, 4, 1, 2, 2, 1, 6, 6, 6, 6]
 
-    sim = AdventureGameSimulation('game_data.json', 1, win_walkthrough)
+    sim = AdventureGameSimulation('game_data.json', 6, win_walkthrough)
     print("EXPECTED:", expected_log)
     print("ACTUAL  :", sim.get_id_log())
     assert expected_log == sim.get_id_log()
 
     # LOSE DEMO
-    lose_demo = ["go east", "go west"] * 15
-    expected_log = [1] + [2, 1] * 15
-    sim = AdventureGameSimulation('game_data.json', 1, lose_demo)
+    lose_demo = ["go south", "go north"] * 15  # From Dorm (6): south->5, north->6
+    expected_log = [6] + [5, 6] * 15
+    sim = AdventureGameSimulation('game_data.json', 6, lose_demo)
     print("---- CHECKING ----")
     print("EXPECTED:", expected_log)
     print("ACTUAL  :", sim.get_id_log())
@@ -221,7 +221,7 @@ if __name__ == "__main__":
 
     assert expected_log == sim.get_id_log()
 
-    # ENAHNCEMENT 2
+    # ENHANCEMENT 2
     enhancement2_demo = [
         "go east",
         "go south",

@@ -243,7 +243,7 @@ def arena_print_rules() -> None:
     print("Costs: p1=0, p2=1, p3=2, shadow adds +2")
     print("Regen: winner +1, loser +2, draw both +1")
     print("Scoring: win +1, first to 5 wins")
-    print("Input examples: 'rock 2', 'scissors3', 'shadow 1', 'paper'")
+    print("Input examples: 'rock 2', 'scissors 3', 'shadow 1', 'paper'")
     print("Type 'rules' anytime to reprint rules.")
     print("Type 'quit' anytime to quit the arena.\n")
 
@@ -271,7 +271,7 @@ def arena_prompt_move(player: ArenaPlayer) -> Optional[Move]:
 
         m = arena_parse_move(raw)
         if m is None:
-            print("Invalid move. Try 'rock 2' or 'scissors3'. Type 'rules' to see rules.")
+            print("Invalid move. Try 'rock 2' or 'scissors 3'. Type 'rules' to see rules.")
             continue
 
         actual, note = arena_enforce_energy(player, m)
@@ -501,7 +501,7 @@ class AdventureGame:
 
     def consume_moves(self) -> Optional[str]:
         """Increase moves_used by 1. End the game if max_moves reached.
-        Return a lose message if the player loses, otherwise return None.
+        Return a loss message if the player loses, otherwise return None.
         """
         self.moves_used += 1
         if self.moves_used >= self.max_moves:

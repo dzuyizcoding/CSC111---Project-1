@@ -49,10 +49,23 @@ ARENA_START_ENERGY = 3
 ARENA_WIN_POINTS = 1
 ARENA_TARGET_POINTS = 5
 
+# Intro message shown only the first time the player is at the Dorm (location 6)
+INTRO_MESSAGE = """You wake up in a panic.
+
+Your project is due at 1pm and you're missing your USB drive,
+laptop charger, and lucky mug. 
+
+You remember that your friend has the USB drive, you were working at the library study room before, 
+and you also have the habit of taking your lucky mug to where your life depends... DURING EXAM!!!
+
+You can't submit the project until you have all of these three items. 
+Can you find them all and make it back in time?"""
 
 # -------------------------
 # Undo + Arena gating state
 # -------------------------
+
+
 @dataclass
 class GameSnapshot:
     """A snapshot of the game state, used for the undo feature."""
@@ -154,7 +167,7 @@ def arena_parse_move(s: str) -> Optional[Move]:
     """
     Accepted formats:
       - "rock 2"
-      - "scissors3"
+      - "scissors 3"
       - "shadow 1"
       - "paper"
     If power omitted, defaults to 1.
@@ -163,7 +176,7 @@ def arena_parse_move(s: str) -> Optional[Move]:
     if not s:
         return None
 
-    # Allow "scissors3" style
+    # Allow "scissors 3" style
     for t in TYPES:
         if s.startswith(t):
             rest = s[len(t):].strip()
@@ -369,11 +382,12 @@ class AdventureGame:
     """A text adventure game class storing all location, item and map data.
 
     Instance Attributes:
-        - current_location_id: the ID of player's current location
-        - ongoing:
+        - current_location_id: the ID of the player's current location
+        - ongoing: True if the game is still in progress, False if won/lost/quit
 
     Representation Invariants:
-
+        - current_location_id in self._locations
+        - len(self.inventory) >= 0
     """
 
     _locations: dict[int, Location]
@@ -394,10 +408,12 @@ class AdventureGame:
     #   - _start_location_id: original starting location (for restart)
     #   - _simulate: whether the game is running in simulation mode (no input prompts)
     #   - _initial_snapshot: snapshot of initial state (for restart)
+    #   - _intro_shown: whether the intro message has been displayed (at location 6)
     _undo_stack: list[GameSnapshot]
     _start_location_id: int
     _simulate: bool
     _initial_snapshot: GameSnapshot
+    _intro_shown: bool
 
     def __init__(self, game_data_file: str, initial_location_id: int,
                  max_moves: int = 30, simulate: bool = False) -> None:
@@ -425,6 +441,7 @@ class AdventureGame:
         # Bahen gate: must beat CSSU AI once before taking laptop at Bahen
         self.bahen_arena_won = False
         self._simulate = simulate
+        self._intro_shown = False
 
         # If we are being run from simulation.py, force simulation mode so the Arena never prompts for input.
         # This keeps simulation.py non-interactive and prevents the Arena from "replaying" during tests.
@@ -498,6 +515,15 @@ class AdventureGame:
     def show_inventory(self) -> list[str]:
         """Return a list of item names in player's inventory."""
         return [item.name for item in self.inventory]
+
+    def get_intro_if_first_visit(self) -> str:
+        """Return the intro message if at location 6 for the first time; otherwise return empty string.
+        Marks the intro as shown when returning it.
+        """
+        if self.current_location_id == 6 and not self._intro_shown:
+            self._intro_shown = True
+            return INTRO_MESSAGE + "\n\n"
+        return ""
 
     def consume_moves(self) -> Optional[str]:
         """Increase moves_used by 1. End the game if max_moves reached.
@@ -816,7 +842,7 @@ if __name__ == "__main__":
         'max-line-length': 120,
         'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker', 'R0902']
     })
-    game = AdventureGame('game_data.json', 6)  # load data, setting initial location ID to 1
+    game = AdventureGame('game_data.json', 6)  # load data, starting at Dorm (location 6)
     menu = ["look", "inventory", "score", "log",
             "undo", "restart", "quit"]  # Regular menu options available at each location
     user_choice = None
@@ -829,6 +855,9 @@ if __name__ == "__main__":
         # Keeping the original auto-add block would cause duplicated events in the log, so it is commented out.
 
         if show_location:
+            intro = game.get_intro_if_first_visit()
+            if intro:
+                print(intro)
             print(game.describe_current_location(force_long=False))
             show_location = False
 

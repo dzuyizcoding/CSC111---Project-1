@@ -382,11 +382,12 @@ class AdventureGame:
     """A text adventure game class storing all location, item and map data.
 
     Instance Attributes:
-        - current_location_id: the ID of player's current location
-        - ongoing:
+        - current_location_id: the ID of the player's current location
+        - ongoing: True if the game is still in progress, False if won/lost/quit
 
     Representation Invariants:
-
+        - current_location_id in self._locations
+        - len(self.inventory) >= 0
     """
 
     _locations: dict[int, Location]
@@ -841,7 +842,7 @@ if __name__ == "__main__":
         'max-line-length': 120,
         'disable': ['R1705', 'E9998', 'E9999', 'static_type_checker', 'R0902']
     })
-    game = AdventureGame('game_data.json', 6)  # load data, setting initial location ID to 1
+    game = AdventureGame('game_data.json', 6)  # load data, starting at Dorm (location 6)
     menu = ["look", "inventory", "score", "log",
             "undo", "restart", "quit"]  # Regular menu options available at each location
     user_choice = None

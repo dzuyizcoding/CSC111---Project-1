@@ -28,14 +28,16 @@ class Location:
 
     Instance Attributes:
         - id_num: integer id for this location
-        - description: Long description of this location
+        - brief_descroption: brief description of the location
+        - long_descroption: long description of the location
         - available_commands: a mapping of available commands at this location to
                                 the location executing that command would lead to
         - items: the items stored at this position
-        -
 
     Representation Invariants:
-        - # TODO Describe any necessary representation invariants
+        - self.id_num >= 0
+        - all keys in available_commands start with "go "
+        - self.items contains only strings that match item names
     """
 
     # This is just a suggested starter class for Location.
@@ -64,7 +66,9 @@ class Item:
         - target_points: the point of the item
 
     Representation Invariants:
-        - # TODO Describe any necessary representation invariants
+        - self.start_position >= 0
+        - self.target_position >= 0
+        - self.target_points >= 0
     """
 
     # NOTES:

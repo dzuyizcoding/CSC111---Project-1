@@ -28,8 +28,8 @@ class Location:
 
     Instance Attributes:
         - id_num: integer id for this location
-        - brief_descroption: brief description of the location
-        - long_descroption: long description of the location
+        - brief_description: brief description of the location
+        - long_descroition: long description of the location
         - available_commands: a mapping of available commands at this location to
                                 the location executing that command would lead to
         - items: the items stored at this position

@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
     expected_log = [1, 4, 3, 2, 2, 1, 6, 6]
 
-    sim = AdventureGameSimulation('game_data.json', 1, win_walkthrough)
+    sim = AdventureGameSimulation('game_data.json', 6, win_walkthrough)
     print("EXPECTED:", expected_log)
     print("ACTUAL  :", sim.get_id_log())
     assert expected_log == sim.get_id_log()
